@@ -23,22 +23,22 @@ def get_target_file_path(target_folder_path, filename, index):
 def cp_op(source_file_path, target_file_path):
     return "cp " + source_file_path + " " + target_file_path
 
-def clear_source():
+def clear_source(source_file_path):
     return 'echo "" > ' + source_file_path
 
 
 def move_to_pool(source_file_path, target_folder_path, filename):
     index = 0
-    with open(get_info_path(), "r") as fp:
+    with open(get_info_path(target_folder_path), "r") as fp:
         index = int(fp.readline().strip())
-    with open(get_info_path(), "w") as fp:
+    with open(get_info_path(target_folder_path), "w") as fp:
         fp.write(str(index + 1))
     os.popen(cp_op(source_file_path, get_target_file_path(target_folder_path, filename, index)))
     os.popen(clear_source(source_file_path))
 
 
 def next_step_1():
-    with open(get_info_path(), "w") as fp:
+    with open(WAVE_FILE_PATH, "w") as fp:
         fp.write(str(random.random()))
    
 
