@@ -109,6 +109,24 @@ class Game:
 		return Game(new_wave,game1.level,new_money, None, None, game1.xml_root)
 
 	@staticmethod
+	def advanced_cross_over(game1, game2):
+		'''
+		static method:
+		given game1 and game2, 
+		do crossover,
+		return a 3rd game
+		'''
+		if game1.level != game2.level:
+			raise Exception("game level not compatible")
+		#pivot point between 1 to len(self.waves)-1
+		pivot = random.randint(1, len(game1.waves)-1)
+		#combine two wave
+		new_wave = game1.waves[:pivot] + game2.waves[pivot:]
+		new_money = (game1.initial_money + game2.initial_money) / 2
+
+		return Game(new_wave,game1.level,new_money, None, None, game1.xml_root)
+
+	@staticmethod
 	def monster_mutation(monster):
 		'''
 		sepecific mutation rule for one monster
