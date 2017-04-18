@@ -43,7 +43,7 @@ def saveTmpData(data):
 def _main(desired_difficulty, desired_fun):
     move_to_pool(LOG_FILE_PATH, PRJ_ROOT + "log_pool/", "log")
     log_file_path = get_cur_file_path(PRJ_ROOT + "log_pool/", "log")
-    difficulty, fun = evaluator.getDF(log_file_path) #Bhavy group
+    difficulty, fun = evaluator.evaluate(log_file_path) #Bhavy group
     saveTmpData(str(difficulty) + " " + str(fun))  
     move_to_pool(TMP_DF_PATH, PRJ_ROOT + "df_pool/", "df")
     level = "placeholder"
