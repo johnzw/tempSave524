@@ -2,9 +2,9 @@ from configure_env import *
 import os
 
 
-for sub_dir in os.listdir(PRJ_ROOT):
+for sub_dir in os.listdir(POOLS_ROOT):
 	if sub_dir.endswith("pool"):
-		dir_path = os.path.join(PRJ_ROOT, sub_dir)
+		dir_path = os.path.join(POOLS_ROOT, sub_dir)
 		#delete all the other things
 		for file_name in os.listdir(dir_path):
 			if not file_name.endswith("_0"):

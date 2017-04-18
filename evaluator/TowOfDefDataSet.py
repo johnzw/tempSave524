@@ -141,4 +141,4 @@ def evaluate(filename):
     diff_level = clf_diff.predict(testData)
     return fun_level[0], diff_level[0]
 if __name__ == '__main__':
-    print evaluate('sample_log.json')
+    print evaluate('sample_log')

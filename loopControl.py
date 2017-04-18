@@ -1,4 +1,5 @@
 import os
+import re
 #import datetime
 import random
 import evolution_algorithm
@@ -33,6 +34,16 @@ def get_cur_file_path(target_folder_path, filename):
     return get_target_file_path(target_folder_path, filename, index - 1)
 
 
+
+def write_to_pool(stream, name):
+    target_folder_path = POOLS_ROOT + name + "_pool/"
+    with open(get_info_path(target_folder_path), "r") as fp:
+        index = int(fp.readline().strip())
+    with open(get_info_path(target_folder_path), "w") as fp:
+        fp.write(str(index + 1))
+    with open(get_target_file_path(target_folder_path, name, index), "a") as fp:
+        fp.write(stream)
+
 def getDF(log_file_path):
     return 7, 7
 
@@ -40,14 +51,25 @@ def saveTmpData(data):
     with open(TMP_DF_PATH, "w") as fp:
         fp.write(data)
 
+
+def filtered_log():
+    with open(LOG_FILE_PATH, "rb") as fp:
+        stream = fp.read()
+    #std_stream = stream.replace('\x00', '')
+    logs = re.findall('{\s+"Type": ".+".+},', stream)
+    return '['+'\n'.join(logs)+']'
+
+
+
 def _main(desired_difficulty, desired_fun):
-    move_to_pool(LOG_FILE_PATH, PRJ_ROOT + "log_pool/", "log")
-    log_file_path = get_cur_file_path(PRJ_ROOT + "log_pool/", "log")
+    write_to_pool(filtered_log(), "log")
+    #move_to_pool(LOG_FILE_PATH, POOLS_ROOT + "log_pool/", "log")
+    log_file_path = get_cur_file_path(POOLS_ROOT + "log_pool/", "log")
     difficulty, fun = evaluator.evaluate(log_file_path) #Bhavy group
     saveTmpData(str(difficulty) + " " + str(fun))  
-    move_to_pool(TMP_DF_PATH, PRJ_ROOT + "df_pool/", "df")
+    move_to_pool(TMP_DF_PATH, POOLS_ROOT + "df_pool/", "df")
     level = "placeholder"
-    game_design_file = get_cur_file_path(PRJ_ROOT + "wave_pool/", "wave")
+    game_design_file = get_cur_file_path(POOLS_ROOT + "wave_pool/", "wave")
     evolution_algorithm.generate_wave(game_design_file, level, difficulty, fun, desired_difficulty, desired_fun, GAMETABLE_CSV_FILE, WAVE_FILE_PATH)
     # run filter
     # next_step_1()
@@ -55,9 +77,13 @@ def _main(desired_difficulty, desired_fun):
     #next_step_3()
     # ....
     # next_step_n()
-    move_to_pool(WAVE_FILE_PATH, PRJ_ROOT + "wave_pool/", "wave")
+    move_to_pool(WAVE_FILE_PATH, POOLS_ROOT + "wave_pool/", "wave")
+
+
+
 
 if __name__ == '__main__':
     desired_difficulty=9
     desired_fun=9
     _main(desired_difficulty, desired_fun)
+ 
