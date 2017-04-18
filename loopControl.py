@@ -52,7 +52,7 @@ def saveTmpData(data):
         fp.write(data)
 
 
-def filtered_log():
+def get_filtered_log():
     with open(LOG_FILE_PATH, "rb") as fp:
         stream = fp.read()
     #std_stream = stream.replace('\x00', '')
@@ -62,7 +62,8 @@ def filtered_log():
 
 
 def _main(desired_difficulty, desired_fun):
-    write_to_pool(filtered_log(), "log")
+    write_to_pool(get_filtered_log(), "log")
+    os.popen(clear_source(LOG_FILE_PATH))
     #move_to_pool(LOG_FILE_PATH, POOLS_ROOT + "log_pool/", "log")
     log_file_path = get_cur_file_path(POOLS_ROOT + "log_pool/", "log")
     difficulty, fun = evaluator.evaluate(log_file_path) #Bhavy group
@@ -71,12 +72,6 @@ def _main(desired_difficulty, desired_fun):
     level = "placeholder"
     game_design_file = get_cur_file_path(POOLS_ROOT + "wave_pool/", "wave")
     evolution_algorithm.generate_wave(game_design_file, level, difficulty, fun, desired_difficulty, desired_fun, GAMETABLE_CSV_FILE, WAVE_FILE_PATH)
-    # run filter
-    # next_step_1()
-    #next_step_2()
-    #next_step_3()
-    # ....
-    # next_step_n()
     move_to_pool(WAVE_FILE_PATH, POOLS_ROOT + "wave_pool/", "wave")
 
 
