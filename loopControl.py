@@ -57,8 +57,8 @@ def get_filtered_log():
         stream = fp.read()
     #std_stream = stream.replace('\x00', '')
     logs = re.findall('{\s+"Type": ".+".+},', stream)
-    return '['+'\n'.join(logs)+']'
-
+    joined_logs = '\n'.join(logs)
+    return '['+joined_logs[:-1]+']'
 
 
 def _main(desired_difficulty, desired_fun):
@@ -67,6 +67,7 @@ def _main(desired_difficulty, desired_fun):
     #move_to_pool(LOG_FILE_PATH, POOLS_ROOT + "log_pool/", "log")
     log_file_path = get_cur_file_path(POOLS_ROOT + "log_pool/", "log")
     difficulty, fun = evaluator.evaluate(log_file_path) #Bhavy group
+    print difficulty, fun
     saveTmpData(str(difficulty) + " " + str(fun))  
     move_to_pool(TMP_DF_PATH, POOLS_ROOT + "df_pool/", "df")
     level = "placeholder"
@@ -81,4 +82,4 @@ if __name__ == '__main__':
     desired_difficulty=9
     desired_fun=9
     _main(desired_difficulty, desired_fun)
- 
+
