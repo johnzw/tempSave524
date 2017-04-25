@@ -1,5 +1,7 @@
-POOLS_ROOT = "/Users/Franz/Documents/524LoopControl/LoopControl/pools/"
-LOG_FILE_PATH = "/Users/Franz/Library/Logs/Unity/Editor.log"
-WAVE_FILE_PATH = "/Users/Franz/Documents/524LoopControl/LoopControl/evolution_algorithm/given_path.xml"
-TMP_DF_PATH = "/Users/Franz/Documents/524LoopControl/LoopControl/tmp_df"
-GAMETABLE_CSV_FILE = '/Users/Franz/Documents/524LoopControl/LoopControl/evolution_algorithm/gametable.csv'
+PRJ_ROOT = "/Users/john/Desktop/dev/tempSave524/pools/"
+LOG_FILE_PATH = "/Users/john/Desktop/dev/tempSave524/sample_log"
+WAVE_FILE_PATH = "/Users/john/Desktop/dev/tempSave524/evolution_algorithm/given_path.xml"
+TMP_DF_PATH = "/Users/john/Desktop/dev/tempSave524/tmp_df"
+GAMETABLE_CSV_FILE = '/Users/john/Desktop/dev/tempSave524/evolution_algorithm/gametable.csv'
+RESULT_PATH = "/Users/john/Desktop/dev/tempSave524/result/final_wave"
+TARGET_PATH = "/Users/john/Desktop/dev/tempSave524/target"
