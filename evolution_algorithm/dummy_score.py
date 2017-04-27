@@ -14,7 +14,7 @@ def calculate_monster_score(monster):
 	return monster.amount * 1
 
 def highest_score():
-	return 10
+	return 8
 
 def evaluate(game_file):
 	game = read_from_file(game_file)

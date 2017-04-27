@@ -63,32 +63,6 @@ class Game:
 		self.fun = fun
 		self.xml_root = xml_root
 	
-	#public 
-	#returns game object 
-	#get_new_game()
-			#get_compatable_game(most_recent_evaluated_wave)
-			#search for compatibel wave 
-			#randomly select games from table based on rule engine which picks set of games based on difficulty and fun level. 	
-	# def get_new_game():
-	# 	#got a game
-		
-	# 	compatable_game = self.get_compatable_game()
-		
-	# 	new_game = self.cross_over(compatable_game)
-		
-	# 	new_game = new_game.mutate()
-	
-	# def cross_over(compatable_game):
-		
-	# 	pivot = random() * len(self.waves)
-		
-	# 	new_wave = self.waves[:pivot] + compatable_game[pivot:]
-		
-	# 	new_money = (self.initial_money + compatable_game.initial_money) / 2  
-	# 	new_money+= RuleEngine.getMoney(self.fun,self.difficulty,self.initial_money,compatable_game.initial_money)# + or - based on rule engine
-		
-	# 	new_game = Game(new_wave)
-	# 	return new_money 
 
 	@staticmethod
 	def simple_cross_over(game1, game2):
@@ -118,12 +92,23 @@ class Game:
 		'''
 		if game1.level != game2.level:
 			raise Exception("game level not compatible")
-		#pivot point between 1 to len(self.waves)-1
-		pivot = random.randint(1, len(game1.waves)-1)
-		#combine two wave
-		new_wave = game1.waves[:pivot] + game2.waves[pivot:]
-		new_money = (game1.initial_money + game2.initial_money) / 2
+		game1_monsters = [monster for wave in game1.waves for monster in wave.monsters]
+		game2_monsters = [monster for wave in game2.waves for monster in wave.monsters]
+		#set the pivot point
+		pivot = random.randint(1, len(game1_monsters)-1)
+		print pivot
+		new_game_monsters = game1_monsters[:pivot] + game2_monsters[pivot:]
+		num_waves = len(game1.waves)
+		monster_for_each_wave = len(new_game_monsters) / num_waves
 
+		new_wave = list()
+		for i in range(num_waves):
+			w = Wave()
+			for j in range(monster_for_each_wave):
+				w.monsters.append(new_game_monsters[i*monster_for_each_wave+j])
+			new_wave.append(w)
+
+		new_money = (game1.initial_money + game2.initial_money) / 2
 		return Game(new_wave,game1.level,new_money, None, None, game1.xml_root)
 
 	@staticmethod
@@ -131,11 +116,9 @@ class Game:
 		'''
 		sepecific mutation rule for one monster
 		'''
-		# print "original monster",monster.id, monster.amount, monster.seconds
 		monster.id = str(random.randint(1,4))
 		monster.amount = random.randint(1,10)
 		monster.seconds = random.randint(1,10)
-		# print "mutated monster",monster.id, monster.amount, monster.seconds
 
 	def mutate(self):
 		'''
@@ -208,13 +191,6 @@ class Game:
 		# #to nicer xml format
 		xmlstr = parseString(ET.tostring(self.xml_root)).toprettyxml(indent="\t").encode('utf-8')
 		return xmlstr
-	
-	# private 
-	# Call crossover(inputgame , selected game)
-	
-	# private 
-	# mutate() 
-	
 
 
 #csv file : xml, level, difficult, fun 	
