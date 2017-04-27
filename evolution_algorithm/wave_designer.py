@@ -120,7 +120,7 @@ class Game:
 		monster.amount = random.randint(1,10)
 		monster.seconds = random.randint(1,10)
 
-	def mutate(self):
+	def mutate(self, money_flag = False):
 		'''
 		random monster at random wave mutate
 		'''
@@ -130,6 +130,10 @@ class Game:
 		random_monster = random.choice(random_wave.monsters)
 		#mutation on monster
 		Game.monster_mutation(random_monster)
+		#money mutation
+		if money_flag:
+			mutation_range = int(self.initial_money * 0.1)
+			self.initial_money = self.initial_money + random.randint(-1*mutation_range, mutation_range)
 		
 	@classmethod
 	def from_xml_string(cls, xml_string, level, difficulty=None, fun=None):
