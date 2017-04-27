@@ -237,11 +237,6 @@ class RuleEngine:
 # 			if found select the indexes and send back. 
 #			else 
 #				select games with any difficulty level and send the indexes. 
-
-	Fun_thresh=6
-	Diff_thresh=6
-	Diff_second_thresh=8	
-	
 	@staticmethod
 	def select(game_table, level, desired_difficulty, desired_fun):
 		'''
@@ -250,6 +245,10 @@ class RuleEngine:
 		more explanation on flag:
 		flag:None --> there is no game that match desired difficulty and desired fun
 			 1 or 2 --> the index of game object that gives desired difficulty and desired fun
+
+		Warning:
+			right now it only deal with difficulty, that is, only evolve to the desired difficulty
+			But since Evaluator team treats difficulty and fun as the same thing, this does not matter at the moment
 		'''
 		#sort the table according to the desired_difficulty
 		diff = game_table.df.difficulty.apply(lambda z:abs(z-desired_difficulty))
@@ -267,18 +266,21 @@ class RuleEngine:
 			flag = 2
 		return flag, Game.from_xml_string(game1.game,level), Game.from_xml_string(game2.game,level)
 
-	def CollectIndexesFromTables(fun,diff):
-		# find all rows with values +-1 fun , diff
-		# check for range 0-10
-		pass
+
 
 	def Interesting_Games(fun,diff):
+		'''
+		this method not used yet
+		'''
 		if fun > Fun_thresh:
 			CollectIndexesFromTables(fun,diff+1)
 		else :
 			CollectIndexesFromTables(fun+1,diff)
 	
 	def getMoney(fun,diff,initial_money,compatable_game_initial_money):
+		'''
+		this method not used yet
+		'''
 		return_val=20		
 		if fun > Fun_thresh:
 			if diff >= Diff_second_thresh:

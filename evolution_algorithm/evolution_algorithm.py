@@ -3,8 +3,11 @@ from wave_designer import *
 import argparse
 import time
 
-'''
-def evolve_process(path_file, level, desired_difficulty = None, desired_fun = None):
+
+def evolve_process_for_demo(path_file, level, desired_difficulty = None, desired_fun = None):
+	'''
+	This is just for demo
+	'''
 	#1 initalize the game table
 	gt = GameTable()
 	#2 initalize the first population
@@ -50,8 +53,12 @@ def evolve_process(path_file, level, desired_difficulty = None, desired_fun = No
 					f.write(new_game.to_xml_string())
 				break
 			gt.add_entry(new_game)
-'''
+
 def generate_wave(game_design_file, level, difficulty, fun, desired_difficulty, desired_fun, gametable_csv_file, target_wave_path):
+	'''
+	given game_design_file and its feedback which is difficulty and fun,
+	according to EA, genearate new game, and write to File System
+	'''
 	if difficulty == desired_difficulty and fun == desired_fun:
 		return True
 	else:
@@ -84,15 +91,15 @@ def generate_wave(game_design_file, level, difficulty, fun, desired_difficulty, 
 			f.write(game_xml)
 		return False
 
-# if __name__ == '__main__':
-# 	parser = argparse.ArgumentParser()
-# 	parser.add_argument("path_file",type=str,help="file path for Path xml")
-# 	parser.add_argument("difficulty", type=int, help="desired difficulty")
-# 	parser.add_argument("fun", type=int, help="desired fun")
-# 	args = parser.parse_args()
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser()
+	parser.add_argument("path_file",type=str,help="file path for Path xml")
+	parser.add_argument("difficulty", type=int, help="desired difficulty")
+	parser.add_argument("fun", type=int, help="desired fun")
+	args = parser.parse_args()
 
-# 	difficulty = args.difficulty
-# 	fun = args.fun
-# 	path_file = args.path_file
+	difficulty = args.difficulty
+	fun = args.fun
+	path_file = args.path_file
 
-# 	evolve_process(path_file,"level1",difficulty,fun)
+	# evolve_process(path_file,"level1",difficulty,fun)
